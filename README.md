@@ -29,28 +29,28 @@ sudo apt install gawk wget git diffstat unzip texinfo gcc build-essential chrpat
 Clone os repositórios necessários dentro da pasta _source_.
 
 1. *Clone os repositórios necessários na versão desejada (ex: kirkstone):*
-   bash
+   ```bash
    git clone -b kirkstone git://git.yoctoproject.org/poky
    git clone -b kirkstone git://git.yoctoproject.org/meta-raspberrypi
    git clone -b kirkstone git://git.openembedded.org/meta-openembedded
-
+   ```
 2. *Inicialize o ambiente de build:*
-   bash
+   ```bash
    source source/poky/oe-init-build-env build
-   
+   ```
 
 ---
 
 ## Configuração de Camadas
 
 1. *Adicione as camadas necessárias:*
-   bash
+   ```bash
    bitbake-layers add-layer ../meta-raspberrypi
    bitbake-layers add-layer ../meta-openembedded/meta-oe
    bitbake-layers add-layer ../meta-openembedded/meta-python
    bitbake-layers add-layer ../meta-openembedded/meta-multimedia
    bitbake-layers add-layer ../meta-openembedded/meta-networking
-   
+   ```
 
 3. *Configure a máquina no arquivo build/conf/local.conf:*
    - Defina o modelo do Raspberry Pi:
@@ -71,13 +71,13 @@ Clone os repositórios necessários dentro da pasta _source_.
 
 1. *Escolha a imagem base:*
    - Para uma imagem mínima:
-     bash
+     ```bash
      bitbake core-image-minimal
-     
+     ```
    - Para uma imagem com interface gráfica (exemplo: Sato):
-     bash
+     ```bash
      bitbake core-image-sato
-     
+     ```
 
 2. **Grave a imagem em um cartão SD:**
    - Certifique-se de identificar corretamente o dispositivo correspondente ao cartão SD, por exemplo, `/dev/sda`. Utilize o comando:
