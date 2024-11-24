@@ -27,3 +27,98 @@ sudo apt-get install gawk wget git-core diffstat unzip texinfo gcc-multilib buil
 
 ## **Configuração do Ambiente** ##
 Clone os repositórios necessários
+
+1. *Clone os repositórios necessários:*
+   bash
+   git clone git://git.yoctoproject.org/poky
+   git clone git://git.yoctoproject.org/meta-raspberrypi
+   git clone git://git.openembedded.org/meta-openembedded
+   
+
+2. *Altere para a branch desejada (ex: zeus):*
+   bash
+   cd poky
+   git checkout zeus
+   cd ../meta-raspberrypi
+   git checkout zeus
+   cd ../meta-openembedded
+   git checkout zeus
+   
+
+3. *Inicialize o ambiente de build:*
+   bash
+   source poky/oe-init-build-env build
+   
+
+---
+
+## Configuração de Camadas
+
+1. *Adicione as camadas necessárias:*
+   bash
+   bitbake-layers add-layer ../meta-raspberrypi
+   bitbake-layers add-layer ../meta-openembedded/meta-oe
+   bitbake-layers add-layer ../meta-openembedded/meta-python
+   bitbake-layers add-layer ../meta-openembedded/meta-multimedia
+   bitbake-layers add-layer ../meta-openembedded/meta-networking
+   
+
+2. *Configure a máquina no arquivo local.conf:*
+   - Defina o modelo do Raspberry Pi:
+     plaintext
+     MACHINE = "raspberrypi3"
+     
+   - Outros ajustes importantes:
+     plaintext
+     INHERIT += "rm_work"
+     ENABLE_UART = "1"
+     IMAGE_ROOTFS_EXTRA_SPACE = "4194304"
+     LICENSE_FLAGS_ACCEPTED += "synaptics-killswitch"
+     
+
+---
+
+## Construção da Imagem
+
+1. *Escolha a imagem base:*
+   - Para uma imagem mínima:
+     bash
+     bitbake core-image-minimal
+     
+   - Para uma imagem com interface gráfica (exemplo: Sato):
+     bash
+     bitbake core-image-sato
+     
+
+2. *Grave a imagem em um cartão SD:*
+   bash
+   sudo dd if=build/tmp/deploy/images/raspberrypi3/core-image-minimal-raspberrypi3.rpi-sdimg of=/dev/sdX bs=4M status=progress && sync
+   
+
+---
+
+## Testando a Imagem
+
+- Insira o cartão SD no Raspberry Pi.
+- Conecte os cabos necessários (alimentação, HDMI e teclado).
+- Inicie o dispositivo.
+
+---
+
+## Comparativo com a Distribuição Oficial
+
+
+| Aspecto                    | Distribuição Oficial       | Distribuição Yocto         |
+|----------------------------|----------------------------|----------------------------|
+| Tempo de Build             | (Preencher)             | (Preencher)             |
+| Tamanho da Imagem          | (Preencher)             | (Preencher)             |
+| Customização               | Limitada                  | Totalmente Personalizável |
+
+---
+
+## Informações Adicionais
+
+- *Diretório de saída:* Todos os artefatos gerados estão localizados em build/tmp/deploy/images.
+- *Documentação Oficial:* [Yocto Project Documentation](https://www.yoctoproject.org/docs/latest/).
+
+Sinta-se à vontade para adicionar métricas de desempenho, personalizações adicionais e outros insights relevantes sobre o uso do Yocto com Raspberry Pi.
