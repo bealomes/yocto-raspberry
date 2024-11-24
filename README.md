@@ -21,33 +21,22 @@ O Yocto Project é um conjunto de ferramentas de software para criar sistemas Li
 Antes de começar, certifique-se de que sua máquina possui os seguintes pacotes instalados (para Ubuntu):
 
 ```bash
-sudo apt-get install gawk wget git-core diffstat unzip texinfo gcc-multilib build-essential chrpath socat cpio python3 python3-pip python3-pexpect xz-utils debianutils iputils-ping python3-git python3-jinja2 libegl1-mesa libsdl1.2-dev pylint3 xterm
+sudo apt install gawk wget git diffstat unzip texinfo gcc build-essential chrpath socat cpio python3 python3-pip python3-pexpect xz-utils debianutils iputils-ping python3-git python3-jinja2 python3-subunit zstd liblz4-tool file locales libacl1
 
 ```
 
 ## **Configuração do Ambiente** ##
-Clone os repositórios necessários
+Clone os repositórios necessários dentro da pasta _source_.
 
-1. *Clone os repositórios necessários:*
+1. *Clone os repositórios necessários na versão desejada (ex: kirkstone):*
    bash
-   git clone git://git.yoctoproject.org/poky
-   git clone git://git.yoctoproject.org/meta-raspberrypi
-   git clone git://git.openembedded.org/meta-openembedded
-   
+   git clone -b kirkstone git://git.yoctoproject.org/poky
+   git clone -b kirkstone git://git.yoctoproject.org/meta-raspberrypi
+   git clone -b kirkstone git://git.openembedded.org/meta-openembedded
 
-2. *Altere para a branch desejada (ex: zeus):*
+2. *Inicialize o ambiente de build:*
    bash
-   cd poky
-   git checkout zeus
-   cd ../meta-raspberrypi
-   git checkout zeus
-   cd ../meta-openembedded
-   git checkout zeus
-   
-
-3. *Inicialize o ambiente de build:*
-   bash
-   source poky/oe-init-build-env build
+   source source/poky/oe-init-build-env build
    
 
 ---
@@ -63,7 +52,7 @@ Clone os repositórios necessários
    bitbake-layers add-layer ../meta-openembedded/meta-networking
    
 
-2. *Configure a máquina no arquivo local.conf:*
+3. *Configure a máquina no arquivo build/conf/local.conf:*
    - Defina o modelo do Raspberry Pi:
      plaintext
      MACHINE = "raspberrypi3"
@@ -90,10 +79,19 @@ Clone os repositórios necessários
      bitbake core-image-sato
      
 
-2. *Grave a imagem em um cartão SD:*
-   bash
-   sudo dd if=build/tmp/deploy/images/raspberrypi3/core-image-minimal-raspberrypi3.rpi-sdimg of=/dev/sdX bs=4M status=progress && sync
-   
+2. **Grave a imagem em um cartão SD:**
+   - Certifique-se de identificar corretamente o dispositivo correspondente ao cartão SD, por exemplo, `/dev/sda`. Utilize o comando:
+     ```bash
+      lsblk
+     ```
+   - Execute os seguintes comandos para preparar e gravar a imagem no cartão:
+     ```bash
+     sudo umount /dev/sda
+     bunzip2 /build/tmp/deploy/images/raspberrypi3-64/core-image-sato-raspberrypi3-64.rootfs-20241030194845.wic.bz2
+     sudo dd if=/build/tmp/deploy/images/raspberrypi3-64/core-image-sato-raspberrypi3-64.rootfs-20241030194845.wic of=/dev/sda bs=4M status=progress
+     sync
+     ```
+
 
 ---
 
@@ -120,5 +118,3 @@ Clone os repositórios necessários
 
 - *Diretório de saída:* Todos os artefatos gerados estão localizados em build/tmp/deploy/images.
 - *Documentação Oficial:* [Yocto Project Documentation](https://www.yoctoproject.org/docs/latest/).
-
-Sinta-se à vontade para adicionar métricas de desempenho, personalizações adicionais e outros insights relevantes sobre o uso do Yocto com Raspberry Pi.
