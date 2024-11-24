@@ -69,7 +69,7 @@ Clone os repositórios necessários dentro da pasta _source_.
 
 ## Construção da Imagem
 
-1. *Escolha a imagem base:*
+*Escolha a imagem base:*
    - Para uma imagem mínima:
      ```bash
      bitbake core-image-minimal
@@ -79,7 +79,7 @@ Clone os repositórios necessários dentro da pasta _source_.
      bitbake core-image-sato
      ```
 
-2. **Grave a imagem em um cartão SD:**
+## Grave a imagem em um cartão SD:
    - Certifique-se de identificar corretamente o dispositivo correspondente ao cartão SD, por exemplo, `/dev/sda`. Utilize o comando:
      ```bash
       lsblk
