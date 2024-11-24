@@ -54,16 +54,16 @@ Clone os repositórios necessários dentro da pasta _source_.
 
 3. *Configure a máquina no arquivo build/conf/local.conf:*
    - Defina o modelo do Raspberry Pi:
-     plaintext
+     ```plaintext
      MACHINE = "raspberrypi3"
-     
+     ```
    - Outros ajustes importantes:
-     plaintext
+     ```plaintext
      INHERIT += "rm_work"
      ENABLE_UART = "1"
      IMAGE_ROOTFS_EXTRA_SPACE = "4194304"
      LICENSE_FLAGS_ACCEPTED += "synaptics-killswitch"
-     
+     ```
 
 ---
 
