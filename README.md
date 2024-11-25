@@ -18,6 +18,18 @@ O Yocto Project é um conjunto de ferramentas de software para criar sistemas Li
 
 ## **Pré-requisitos**
 
+Distribuições Linux suportadas:
+- Ubuntu 20.04 (LTS)
+- Ubuntu 22.04 (LTS)
+- Fedora 38
+- CentOS Stream 8
+- Debian GNU/Linux 11 (Bullseye)
+- Debian GNU/Linux 12 (Bookworm)
+- OpenSUSE Leap 15.4
+- AlmaLinux 8
+- AlmaLinux 9
+- Rocky 9
+
 Antes de começar, certifique-se de que sua máquina possui os seguintes pacotes instalados (para Ubuntu):
 
 ```bash
