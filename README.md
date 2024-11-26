@@ -9,10 +9,46 @@ Este repositório documenta o processo de criação de distribuições Linux per
 O Yocto Project é um conjunto de ferramentas de software para criar sistemas Linux personalizados e otimizados para arquiteturas de hardware específicas. Ele permite que desenvolvedores definam cada aspecto de sua distribuição Linux, desde o kernel até pacotes específicos. O Yocto é amplamente utilizado para sistemas embarcados, sendo ideal para criar imagens enxutas e otimizadas para dispositivos como o Raspberry Pi.
 
 ### **Elementos principais do Yocto Project**
-- **Poky**: Referência padrão que inclui BitBake, OpenEmbedded-Core, e ferramentas adicionais.
-- **BitBake**: Ferramenta para automatizar o processo de construção baseado em receitas.
-- **Receitas (.bb)**: Instruções para compilar, configurar e instalar pacotes.
-- **Camadas (Layers)**: Coleções de receitas organizadas por propósito.
+- **Poky**: 
+  Distribuição de referência do Yocto, inclui:
+  - **Bitbake**: Ferramenta de construção.
+  - **OE-Core**: Core compartilhado.
+  - **Meta-Yocto-BSP**: Suporte para hardware de referência.
+  - Documentação.
+
+- **Open Embedded Core (OE-Core)**: 
+  Core compartilhado entre Yocto e OpenEmbedded. Permite criar distribuições Linux para sistemas embarcados. Embora sejam organizações separadas, compartilham metadados e trabalham em conjunto.
+
+- **Metadata**: 
+  Conjunto de arquivos que definem a configuração e especificações do sistema:
+  - **Arquivos de Configuração (.conf)**: Definem variáveis globais e informações de hardware.
+  - **Receitas (.bb e .bbappend)**: Instruções sobre código-fonte, patches, opções de compilação e licenças.
+  - **Classes (.bbclass)**: Abstraem funcionalidades comuns para compartilhar entre várias receitas.
+  - **Includes (.inc)**: Arquivos incluídos para modularização e reutilização de código.
+
+- **Bitbake**: 
+  Agendador de tarefas que processa código misto de Python e shell script. Lê receitas, busca pacotes, compila e integra os resultados em uma imagem inicializável.
+
+- **Meta-Yocto-BSP**: 
+  Conjunto de arquivos para suportar dispositivos de hardware específicos. Define informações sobre recursos de hardware presentes em dispositivos como BeagleBone, Intel x86, Raspberry Pi, entre outros.
+
+- **Receitas (.bb Files)**: 
+  Instruções que descrevem código-fonte, patches a serem aplicados, opções de configuração e compilação, além de licenças. Lidas e processadas pelo Bitbake.
+
+- **Arquivos de Configuração (.conf)**: 
+  Definem variáveis globais e específicas do hardware. Exemplos incluem `local.conf` e `bblayers.conf`.
+
+- **Classes (.bbclass)**: 
+  Arquivos que abstraem funcionalidades comuns para compartilhar entre múltiplas receitas.
+
+- **Layers**: 
+  Coleções de receitas relacionadas organizadas em pastas (`meta-[layername]`, como `meta`, `meta-poky`, `meta-yocto-bsp`). As camadas são listadas em `bblayers.conf`. Outras camadas podem ser encontradas em [OpenEmbedded Layer Index](https://layers.openembedded.org/layerindex/branch/master/layers/).
+
+- **Image**: 
+  Define como o sistema de arquivos raiz é construído, incluindo pacotes a serem instalados.
+
+- **Package**: 
+  Arquivo binário resultante de uma receita, no formato `.rpm`, `.deb`, ou `.ipkg`. Uma única receita pode produzir vários pacotes.
 
 ---
 
@@ -37,14 +73,48 @@ sudo apt install gawk wget git diffstat unzip texinfo gcc build-essential chrpat
 
 ```
 
+## **Estrutura base do projeto** ##
+O projeto contará com a seguinte estrutura:
+
+Workdir
+├── build
+│   ├── cache
+│   ├── conf
+│   │   ├── bblayers.conf
+│   │   ├── local.conf
+│   │   └── templateconf.cfg
+│   ├── downloads
+│   ├── sstate-cache
+│   └── tmp
+│       └── deploy
+│           └── images
+│               └── raspberrypi3
+└── source
+    ├── meta-mylayer
+    ├── meta-openembedded
+    ├── meta-raspberrypi
+    └── poky
+
+#### **1. `source`**
+Contém as camadas (layers) e metadados do Yocto.
+
+#### **2. `build`**
+Diretório onde os arquivos de build se encontram:
+- **`conf`**: Configurações do projeto:
+  - **`bblayers.conf`**: Lista de camadas.
+  - **`local.conf`**: Configurações locais (ex. hardware, threads).
+- **`tmp/deploy/images/raspberrypi3`**: Contém a imagem final gerada para Raspberry Pi 3. 
+
+Esse é o local onde você encontrará os arquivos `.wic` ou similares para flash no dispositivo.
+
 ## **Configuração do Ambiente** ##
 Clone os repositórios necessários dentro da pasta _source_.
 
 1. *Clone os repositórios necessários na versão desejada (ex: kirkstone):*
    ```bash
-   git clone -b kirkstone git://git.yoctoproject.org/poky
-   git clone -b kirkstone git://git.yoctoproject.org/meta-raspberrypi
-   git clone -b kirkstone git://git.openembedded.org/meta-openembedded
+   git clone -b dunfell git://git.yoctoproject.org/poky
+   git clone -b dunfell git://git.yoctoproject.org/meta-raspberrypi
+   git clone -b dunfell git://git.openembedded.org/meta-openembedded
    ```
 2. *Inicialize o ambiente de build:*
    ```bash
@@ -120,13 +190,15 @@ Clone os repositórios necessários dentro da pasta _source_.
 
 | Aspecto                    | Distribuição Oficial       | Distribuição Yocto         |
 |----------------------------|----------------------------|----------------------------|
-| Tempo de Build             | (Preencher)             | (Preencher)             |
-| Tamanho da Imagem          | (Preencher)             | (Preencher)             |
+| Tempo de Build             | 15 min             | 4 horas             |
+| Tamanho da Imagem          | 2 Gb             | 180 Mb (sem interface) e 1 Gb (com interface)             |
 | Customização               | Limitada                  | Totalmente Personalizável |
 
 ---
 
-## Informações Adicionais
+## Links Úteis
 
-- *Diretório de saída:* Todos os artefatos gerados estão localizados em build/tmp/deploy/images.
-- *Documentação Oficial:* [Yocto Project Documentation](https://www.yoctoproject.org/docs/latest/).
+- [Yocto Project Documentation](https://www.yoctoproject.org/docs/latest/).
+- [Kickstart Embedded](https://kickstartembedded.com/2022/02/28/yocto-part-9-customising-images-by-adding-your-recipes/)
+- [Compile uma Distro de Linux Embarcado para a Raspberry Pi 3 usando Yocto Project](https://embarcados.com.br/linux-para-a-raspberry-pi-3-usando-yocto/)
+- [Raspberry Pi + Yocto (dora)](https://embarcados.com.br/raspberrypi-yocto/) 
