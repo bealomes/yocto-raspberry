@@ -127,13 +127,13 @@ Clone os repositórios necessários dentro da pasta _source_.
 
 ## Configuração de Camadas
 
-1. Adicione as camadas necessárias:
+1. Adicione as camadas necessárias. Na pasta build, execute:
    ```bash
-   bitbake-layers add-layer ../meta-raspberrypi
-   bitbake-layers add-layer ../meta-openembedded/meta-oe
-   bitbake-layers add-layer ../meta-openembedded/meta-python
-   bitbake-layers add-layer ../meta-openembedded/meta-multimedia
-   bitbake-layers add-layer ../meta-openembedded/meta-networking
+   bitbake-layers add-layer ../source/meta-raspberrypi
+   bitbake-layers add-layer ../source/meta-openembedded/meta-oe
+   bitbake-layers add-layer ../source/meta-openembedded/meta-python
+   bitbake-layers add-layer ../source/meta-openembedded/meta-multimedia
+   bitbake-layers add-layer ../source/meta-openembedded/meta-networking
    ```
 
 3. Configure a máquina no arquivo build/conf/local.conf:
