@@ -112,7 +112,7 @@ Esse é o local onde você encontrará os arquivos `.wic` ou similares para flas
 ## **Configuração do Ambiente** ##
 Clone os repositórios necessários dentro da pasta _source_.
 
-1. Clone os repositórios necessários na versão desejada (ex: kirkstone):
+1. Clone os repositórios necessários na versão desejada (ex: dunfell):
    ```bash
    git clone -b dunfell git://git.yoctoproject.org/poky
    git clone -b dunfell git://git.yoctoproject.org/meta-raspberrypi
