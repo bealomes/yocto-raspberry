@@ -76,6 +76,7 @@ sudo apt install gawk wget git diffstat unzip texinfo gcc build-essential chrpat
 ## **Estrutura base do projeto** ##
 O projeto contará com a seguinte estrutura:
 
+```bash
 Workdir
 ├── build
 │   ├── cache
@@ -94,6 +95,7 @@ Workdir
     ├── meta-openembedded
     ├── meta-raspberrypi
     └── poky
+```
 
 #### **1. `source`**
 Contém as camadas (layers) e metadados do Yocto.
@@ -110,13 +112,13 @@ Esse é o local onde você encontrará os arquivos `.wic` ou similares para flas
 ## **Configuração do Ambiente** ##
 Clone os repositórios necessários dentro da pasta _source_.
 
-1. *Clone os repositórios necessários na versão desejada (ex: kirkstone):*
+1. Clone os repositórios necessários na versão desejada (ex: kirkstone):
    ```bash
    git clone -b dunfell git://git.yoctoproject.org/poky
    git clone -b dunfell git://git.yoctoproject.org/meta-raspberrypi
    git clone -b dunfell git://git.openembedded.org/meta-openembedded
    ```
-2. *Inicialize o ambiente de build:*
+2. Inicialize o ambiente de build:
    ```bash
    source source/poky/oe-init-build-env build
    ```
@@ -125,7 +127,7 @@ Clone os repositórios necessários dentro da pasta _source_.
 
 ## Configuração de Camadas
 
-1. *Adicione as camadas necessárias:*
+1. Adicione as camadas necessárias:
    ```bash
    bitbake-layers add-layer ../meta-raspberrypi
    bitbake-layers add-layer ../meta-openembedded/meta-oe
@@ -134,7 +136,7 @@ Clone os repositórios necessários dentro da pasta _source_.
    bitbake-layers add-layer ../meta-openembedded/meta-networking
    ```
 
-3. *Configure a máquina no arquivo build/conf/local.conf:*
+3. Configure a máquina no arquivo build/conf/local.conf:
    - Defina o modelo do Raspberry Pi:
      ```plaintext
      MACHINE = "raspberrypi3"
@@ -151,7 +153,7 @@ Clone os repositórios necessários dentro da pasta _source_.
 
 ## Construção da Imagem
 
-*Escolha a imagem base:*
+Escolha a imagem base:
    - Para uma imagem mínima:
      ```bash
      bitbake core-image-minimal
