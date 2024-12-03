@@ -176,6 +176,8 @@ Escolha a imagem base:
      sync
      ```
 
+     Aqui é importante entrar no diretório e ver o nome da imagem que foi gerada. O arquivo "core-image-sato-raspberrypi3-64.rootfs-20241030194845.wic" varia os números a cada build.
+
 
 ---
 
@@ -192,9 +194,11 @@ Escolha a imagem base:
 
 | Aspecto                    | Distribuição Oficial       | Distribuição Yocto         |
 |----------------------------|----------------------------|----------------------------|
-| Tempo de Build             | 15 min             | 4 horas             |
+| Tempo de Build             | 15 min             | de 4 a 7 horas            |
 | Tamanho da Imagem          | 2 Gb             | 180 Mb (sem interface) e 1 Gb (com interface)             |
 | Customização               | Limitada                  | Totalmente Personalizável |
+
+As duas maiores desvantagens de trabalhar com yocto são o tempo de build de uma imagem e a memória necessária em disko. Um projeto de yocto pode chegar a 40Gb.
 
 ---
 
