@@ -205,3 +205,8 @@ Escolha a imagem base:
 - [Kickstart Embedded](https://kickstartembedded.com/2022/02/28/yocto-part-9-customising-images-by-adding-your-recipes/)
 - [Compile uma Distro de Linux Embarcado para a Raspberry Pi 3 usando Yocto Project](https://embarcados.com.br/linux-para-a-raspberry-pi-3-usando-yocto/)
 - [Raspberry Pi + Yocto (dora)](https://embarcados.com.br/raspberrypi-yocto/) 
+
+## Alunos: 
+Beatriz Lomes da Silva - 12548038
+
+Pedro Oliveira Torrente - 11798853
