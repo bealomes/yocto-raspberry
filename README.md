@@ -197,8 +197,9 @@ Escolha a imagem base:
 | Tempo de Build             | 15 min             | de 4 a 7 horas            |
 | Tamanho da Imagem          | 2 Gb             | 180 Mb (sem interface) e 1 Gb (com interface)             |
 | Customização               | Limitada                  | Totalmente Personalizável |
+| Tamanho em disco | - | 40 Gb |
 
-As duas maiores desvantagens de trabalhar com yocto são o tempo de build de uma imagem e a memória necessária em disko. Um projeto de yocto pode chegar a 40Gb.
+As duas maiores desvantagens de trabalhar com yocto são o tempo de build de uma imagem e a memória necessária em disco. Um projeto de yocto pode ocupar dezenas de Gb em disco.
 
 ---
 
